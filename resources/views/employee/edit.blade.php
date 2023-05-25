@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,
-initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>{{ $pageTitle }}</title>
     @vite('resources/sass/app.scss')
 </head>
@@ -27,16 +26,15 @@ initial-scale=1.0">
                             class="nav-link">Employee List</a></li>
                 </ul>
                 <hr class="d-lg-none text-white-50">
-                <a href="{{ route('profile') }}" class="btn
-btn-outline-light my-2 ms-md-auto"><i
-                        class="bi-person-circle me-1"></i>
-                    My Profile</a>
+                <a href="{{ route('profile') }}" class="btn btn-outline-light my-2 ms-md-auto"><i class="bi-person-circle me-1"></i>My Profile</a>
             </div>
         </div>
     </nav>
     <div class="container-sm mt-5">
-        <form action="{{ route('employees.store') }}" class="needs-validation was-validated" method="POST" novalidate="">
+        @foreach ($employee as $e)
+        <form action="{{route('employees.update', $e->id)}}" class="needs-validation was-validated" method="POST">
             @csrf
+            @method('PUT')
             <div class="row justify-content-center">
                 <div class="p-5 bg-light rounded-3 border col-xl-6">
                     <div class="mb-3 text-center">
@@ -47,7 +45,7 @@ btn-outline-light my-2 ms-md-auto"><i
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName" class="form-label">First Name</label>
-                            <input class="form-control @error('firstName') is-invalid @enderror" type="text" name="firstName" id="firstName" value="{{old('firstName')}}"
+                            <input class="form-control @error('firstName') is-invalid @enderror" type="text" name="firstName" id="firstName" value="{{ $e->firstname }}"
                                 placeholder="Enter First Name" required="">
                                 @error('firstName')
                                     <div class="invalid-feedback"> {{ $message }}</div>
@@ -56,7 +54,7 @@ btn-outline-light my-2 ms-md-auto"><i
                         <div class="col-md-6 mb-3">
                             <label for="lastName" class="form-label">Last
                                 Name</label>
-                            <input class="form-control  @error('lastName') is-invalid @enderror" type="text" name="lastName" id="lastName" value="{{old('lastName')}}"
+                            <input class="form-control  @error('lastName') is-invalid @enderror" type="text" name="lastName" id="lastName" value="{{ $e->lastname }}"
                                 placeholder="Enter Last Name" required="">
                                 @error('lastName')
                                     <div class="invalid-feedback"> {{ $message }}</div>
@@ -64,7 +62,7 @@ btn-outline-light my-2 ms-md-auto"><i
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input class="form-control  @error('email') is-invalid @enderror" type="text" name="email" id="email" value="{{old('email')}}"
+                            <input class="form-control  @error('email') is-invalid @enderror" type="text" name="email" id="email" value="{{ $e->email }}"
                                 placeholder="Enter Email" required="">
                                 @error('email')
                                     <div class="invalid-feedback"> {{ $message }}</div>
@@ -72,7 +70,7 @@ btn-outline-light my-2 ms-md-auto"><i
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="age" class="form-label">Age</label>
-                            <input class="form-control  @error('age') is-invalid @enderror" type="text" name="age" id="age" value="{{old('age')}}"
+                            <input class="form-control  @error('age') is-invalid @enderror" type="text" name="age" id="age" value="{{ $e->age }}"
                                 placeholder="Enter Age" required="">
                                 @error('age')
                                     <div class="invalid-feedback"> {{ $message }}</div>
@@ -95,19 +93,16 @@ btn-outline-light my-2 ms-md-auto"><i
                     <hr>
                     <div class="row">
                         <div class="col-md-6 d-grid">
-                            <a href="{{ route('employees.index') }}" class="btn btn-outline-dark btn-lg mt-3"><i
-                                    class="bi-arrow-left-circle
-me-2"></i> Cancel</a>
+                            <a href="{{ route('employees.index') }}" class="btn btn-outline-dark btn-lg mt-3"><i class="bi-arrow-left-circle me-2"></i> Cancel</a>
                         </div>
                         <div class="col-md-6 d-grid">
-                            <button type="submit" class="btn btn-dark
-btn-lg mt-3"><i class="bi-check-circle me-2"></i>
-                                Save</button>
+                            <button type="submit" class="btn btn-dark-lg mt-3"><i class="bi-check-circle me-2"></i>Save</button>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
+        @endforeach
     </div>
     @vite('resources/js/app.js')
 </body>

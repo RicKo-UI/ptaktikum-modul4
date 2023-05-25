@@ -5,7 +5,7 @@
     {
         function index()
         {
-        $pageTitle = 'Home';
-        return view('home', ['pageTitle' => $pageTitle]);
+            $pageTitle = 'Home';
+            return view('home', ['pageTitle' => $pageTitle]);
         }
 }
